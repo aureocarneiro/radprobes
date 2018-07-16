@@ -1,0 +1,47 @@
+# Thermo-FHT6020.db
+
+# Record definition file for one Thermo Fisher Scientific FHT 6020 controller.
+
+# Each record defined below has the following parameters:
+#
+# PORT - Name of the port configured in asynDriver.
+#
+# PREFIX - Prefix name for all PVs associated with the device.
+
+# Gamma
+
+record(ai, "$(PREFIX):Gamma") {
+    field(DESC, "Gamma")
+    field(DTYP, "stream")
+    field(EGU, "uSv/h")
+    field(INP, "@Thermo-FHT6020.proto getGamma $(PORT)")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(SCAN, "1 second")
+    field(MDEL, "-1")
+}
+
+# Neutron
+
+record(ai, "$(PREFIX):Neutron") {
+    field(DESC, "High energy neutrons")
+    field(DTYP, "stream")
+    field(EGU, "uSv/h")
+    field(INP, "@Thermo-FHT6020.proto getNeutron $(PORT)")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(SCAN, "1 second")
+    field(MDEL, "-1")
+}
+
+# Total dose rate
+
+record(calc, "$(PREFIX):TotalDoseRate") {
+    field(DESC, "Total dose rate")
+    field(EGU, "uSv/h")
+    field(INPA, "$(PREFIX):Gamma CP")
+    field(INPB, "$(PREFIX):Neutron CP")
+    field(CALC, "A + B")
+    field(PREC, "3")
+    field(MDEL, "-1")
+}

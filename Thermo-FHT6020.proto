@@ -1,0 +1,26 @@
+# Thermo-FHT6020.proto
+
+# Communication protocol for Thermo probes and 6020 monitor
+
+# Protocol terminator character
+
+Terminator = ETX;
+BEL = 0x07;
+ETX = 0x03;
+MSGGAMMA = 01RM1;
+MSGNEUTRON = 01RM2;
+CS = %0<sum>;
+
+# Gamma
+
+getGamma {
+    out ${BEL}${MSGGAMMA}${CS}${ETX};
+    in ${BEL}, "RM ", "%f", "  0000  0000", ${CS};
+}
+
+# Neutron
+
+getNeutron {
+    out ${BEL}${MSGNEUTRON}${CS}${ETX};
+    in ${BEL}, "RM ", "%f", "  0000  0000", ${CS};
+}

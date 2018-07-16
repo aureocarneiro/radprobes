@@ -1,0 +1,21 @@
+# ELSE-SATURN5702.proto
+
+# Communication protocol for ELSE Nuclear probes (ICP-T-PF and LUPIN 5401 BF3-NP models) and SATURN
+
+# Protocol terminator character
+
+Terminator = LF;
+STX = 0x02;
+ETX = 0x03;
+CS = %03<xor>;
+MSG = 01001MI;
+MSGA = 01001MIK;
+
+# Value
+
+getValue {
+    out ${STX}${MSG}${CS}${ETX};
+    in ${STX}, ${MSGA}, "%f", ${CS}, ${ETX};
+}
+
+

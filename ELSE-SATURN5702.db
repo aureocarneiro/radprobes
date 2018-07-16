@@ -1,0 +1,49 @@
+# ELSE-SATURN5702.db
+
+# Record definition file for a set of one ICP-T-PF and one LUPIN 5401 BF3-NP detectors from ELSE
+# Nuclear.
+
+# Each record defined below has the following parameters:
+#
+# PORT - Name of the port configured in asynDriver.
+#
+# PREFIX - Prefix name for all PVs associated with the devices.
+
+# Gamma
+
+record(ai, "$(PREFIX):Gamma") {
+    field(DESC, "Gamma")
+    field(DTYP, "stream")
+    field(EGU, "uSv/h")
+    field(INP, "@ELSE-SATURN5702.proto getValue $(PORT1)")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(SCAN, "1 second")
+    field(MDEL, "-1")
+}
+
+# Neutron
+
+record(ai, "$(PREFIX):Neutron") {
+    field(DESC, "High energy neutrons")
+    field(DTYP, "stream")
+    field(EGU, "uSv/h")
+    field(INP, "@ELSE-SATURN5702.proto getValue $(PORT2)")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(SCAN, "1 second")
+    field(MDEL, "-1")
+}
+
+# Total dose rate
+
+record(calc, "$(PREFIX):TotalDoseRate") {
+    field(DESC, "Total dose rate")
+    field(EGU, "uSv/h")
+    field(INPA, "$(PREFIX):Gamma CP")
+    field(INPB, "$(PREFIX):Neutron CP")
+    field(CALC, "A + B")
+    field(PREC, "3")
+    field(MDEL, "-1")
+}
+
