@@ -4,18 +4,17 @@
 
 # Protocol terminator character
 
-Terminator = LF;
+Terminator = 0x03;
 STX = 0x02;
-ETX = 0x03;
 CS = %03<xor>;
-MSG = 01001MI;
-MSGA = 01001MIK;
+MSG = 01001;
+MSGA = 01009;
 
 # Value
 
 getValue {
-    out ${STX}${MSG}${CS}${ETX};
-    in ${STX}, ${MSGA}, "%f", ${CS}, ${ETX};
+    out $STX, "\${MSG}MI\${CS}";
+    in $STX, "\${MSGA}MI%*c%!7f\${CS}";
 }
 
 
