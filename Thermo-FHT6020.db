@@ -19,6 +19,7 @@ record(ai, "$(PREFIX):Gamma") {
     field(PREC, "3")
     field(SCAN, "1 second")
     field(MDEL, "-1")
+    field(FLNK, "$(PREFIX):Neutron")
 }
 
 # Neutron
@@ -30,8 +31,8 @@ record(ai, "$(PREFIX):Neutron") {
     field(INP, "@Thermo-FHT6020.proto getNeutron $(PORT)")
     field(PINI, "YES")
     field(PREC, "3")
-    field(SCAN, "1 second")
     field(MDEL, "-1")
+    field(FLNK, "$(PREFIX):TotalDoseRate")
 }
 
 # Total dose rate
@@ -39,8 +40,8 @@ record(ai, "$(PREFIX):Neutron") {
 record(calc, "$(PREFIX):TotalDoseRate") {
     field(DESC, "Total dose rate")
     field(EGU, "uSv/h")
-    field(INPA, "$(PREFIX):Gamma CP")
-    field(INPB, "$(PREFIX):Neutron CP")
+    field(INPA, "$(PREFIX):Gamma NPP MSS")
+    field(INPB, "$(PREFIX):Neutron NPP MSS")
     field(CALC, "A + B")
     field(PREC, "3")
     field(MDEL, "-1")
